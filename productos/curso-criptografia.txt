@@ -1,0 +1,9 @@
+Curso de Criptografía Aplicada
+
+- Hashes: SHA-512
+- Derivación: Argon2id
+- Firma: Ed25519
+- Autenticación: JWT con roles
+- HTTPS/TLS con certificados locales
+
+Objetivo: demostrar conceptos de confidencialidad, integridad, no repudio y disponibilidad.

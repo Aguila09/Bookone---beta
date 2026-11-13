@@ -1,0 +1,41 @@
+================================================================================
+                           BIBLIOTECA DIGITAL BOOKONE
+================================================================================
+Título: La Metamorfosis
+Autor: Franz Kafka
+Categoría: Literatura Clásica / Ficción Filosófica
+Edición: Colección Vanguardias Europeas — BOOKONE
+Identificador Criptográfico: BOOKONE-LIT-005
+Norma de Integridad: SHA-512 / Firma Digital Ed25519
+================================================================================
+
+I
+Cuando Gregorio Samsa se despertó una mañana después de un sueño intranquilo, se
+encontró sobre su cama convertido en un monstruoso insecto. Estaba tumbado sobre
+su espalda dura, y al levantar un poco la cabeza vio un vientre abombado, pardo,
+dividido por partes duras en forma de arco, sobre cuya cima apenas se podía
+sostener la colcha, a punto de escurrirse por completo. Sus muchas patas,
+ridículamente pequeñas en comparación con el resto de su tamaño, le vibraban
+desamparadas ante los ojos.
+
+«¿Qué me ha ocurrido?», pensó. No era un sueño. Su habitación, una auténtica
+habitación humana, tal vez algo pequeña, permanecía tranquila entre las cuatro
+paredes bien conocidas. Por encima de la mesa, sobre la que se encontraba extendido
+un muestrario de paños desempaquetados —Samsa era viajante de comercio—, colgaba
+aquel cuadro que hacía poco había recortado de una revista ilustrada y puesto en un
+lindo marco dorado. Representaba a una dama vestida con un gorro de piel y una
+boa de piel, que estaba allí sentada muy erguida y levantaba hacia el espectador
+un pesado manguito de piel, en el que se ocultaba todo su antebrazo.
+
+La mirada de Gregorio se dirigió después hacia la ventana, y el tiempo lluvioso
+—se oían caer gotas de lluvia sobre la chapa del alféizar de la ventana— le ponía
+del todo melancólico. «¿Qué pasaría —pensó— si siguiese durmiendo un rato y me
+olvidase de todas estas locuras?» Pero esto era completamente irrealizable, porque
+estaba acostumbrado a dormir sobre el lado derecho, pero su estado actual no le
+permitía adoptar esa postura. Por más que se esforzase en volverse sobre el lado
+derecho, una y otra vez se balanceaba de nuevo hacia la espalda...
+
+================================================================================
+Sello de Preservación Digital: BOOKONE ARCHIVE - Integridad Garantizada
+Biblioteca Digital BOOKONE — Colección Relato y Novela
+================================================================================

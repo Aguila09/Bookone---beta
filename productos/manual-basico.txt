@@ -1,0 +1,16 @@
+Manual Básico de Seguridad Digital
+
+Este documento demuestra la entrega segura de contenido digital con protección por integridad y firma.
+
+Sección 1: Políticas básicas
+- Usar contraseñas fuertes.
+- Mantener sistemas actualizados.
+- Activar HTTPS/TLS.
+
+Sección 2: Flujo principal
+- Registro
+- Inicio de sesión
+- Compra simulada
+- Descarga segura
+
+Fin del documento.

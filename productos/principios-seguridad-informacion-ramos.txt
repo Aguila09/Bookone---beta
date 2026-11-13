@@ -1,0 +1,47 @@
+================================================================================
+                           BIBLIOTECA DIGITAL BOOKONE
+================================================================================
+Título: Principios de Seguridad de la Información y Repositorios Digitales
+Autor: Víctor Ramos & Equipo de Seguridad Informática
+Categoría: Ciberseguridad, Criptografía y Arquitectura de Sistemas
+Edición: Serie Textos Académicos BOOKONE — 2026
+Identificador Criptográfico: BOOKONE-ENG-006
+Norma de Integridad: SHA-512 / Firma Digital Ed25519
+================================================================================
+
+PRÓLOGO INSTITUCIONAL
+La conservación y transmisión segura del acervo bibliográfico digital exige una
+arquitectura de defensa en profundidad donde cada capa mitigue riesgos concretos.
+En esta obra se exponen los pilares matemáticos, operativos y de red implementados
+en la plataforma de preservación BOOKONE.
+
+CAPÍTULO 1: LA TRÍADA DE LA SEGURIDAD APLICADA A LIBROS DIGITALES
+1. Confidencialidad: Asegurar que el acceso a las obras y datos de los lectores
+   esté restringido a identidades autenticadas y autorizadas mediante control de
+   acceso basado en roles (RBAC: Lector, Curador, Bibliotecario Mayor).
+2. Integridad: Garantizar que el texto digital no sufra manipulaciones accidentales
+   ni maliciosas. Esto se logra calculando el digesto SHA-512 de cada volumen y
+   verificándolo en cada solicitud y descarga.
+3. Disponibilidad: La infraestructura de la biblioteca debe operar de manera
+   continua y resiliente, empleando protocolos seguros TLS 1.3 con certificados
+   locales X.509 y túneles IPSec para la administración remota.
+
+CAPÍTULO 2: HASHING ROBUSTO Y DERIVACIÓN DE CLAVES
+- Argon2id es el algoritmo recomendado para contraseñas de lectores: combina
+  resistencia contra ataques de fuerza bruta en GPU/ASIC mediante coste de memoria
+  y tiempo ajustables, previniendo ataques de canal lateral.
+- SHA-512 produce una huella de 64 bytes que sirve como identificador inmutable
+  de cada ejemplar en el catálogo.
+
+CAPÍTULO 3: FINGERPRINTING INDIVIDUALIZADO Y EX LIBRIS DIGITAL
+- Cuando un lector adquiere o toma prestado un volumen, se genera un bloque
+  inmutable de metadatos criptográficos (Fingerprint) que incrusta el ID del usuario,
+  el número de préstamo y el identificador de la obra.
+- La transacción se firma con Ed25519, produciendo un "Ex Libris Criptográfico"
+  que asegura el no repudio: ni la biblioteca ni el lector pueden desconocer
+  la procedencia del ejemplar.
+
+================================================================================
+Sello de Preservación Digital: BOOKONE ARCHIVE - Integridad Garantizada
+Cátedra de Seguridad de la Información II — Proyecto BOOKONE
+================================================================================

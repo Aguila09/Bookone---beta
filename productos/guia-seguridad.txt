@@ -1,0 +1,9 @@
+Guía de Seguridad para la Plataforma
+
+1. Verificar certificados HTTPS.
+2. No reutilizar credenciales.
+3. Registrar eventos de seguridad.
+4. Restringir permisos por rol.
+5. Mantener copias de respaldo.
+
+Contenido de ejemplo para pruebas de descarga y fingerprinting.

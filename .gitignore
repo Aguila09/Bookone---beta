@@ -1,0 +1,7 @@
+node_modules/
+.env
+certificados/*.key
+certificados/*.csr
+claves_publicas/*.pem
+**/*.log
+.DS_Store

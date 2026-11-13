@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOOKONE — Biblioteca Digital & Repositorio Criptográfico</title>
+  
+  <!-- Pre-verificación de sesión para evitar parpadeo de splash al recargar -->
+  <script>
+    if (sessionStorage.getItem('bookone_splash_seen')) {
+      document.documentElement.classList.add('splash-already-seen');
+    }
+  </script>
+
+  <!-- Tipografía Editorial Literaria -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- Pantalla de Inicio / Splash Screen Editorial BOOKONE (Sin barra de carga) -->
+  <aside id="splashScreen" class="splash-screen" role="dialog" aria-modal="true" aria-label="Bienvenida a BOOKONE">
+    <div class="splash-backdrop"></div>
+    <div class="splash-frame">
+      <div class="splash-corner corner-tl"></div>
+      <div class="splash-corner corner-tr"></div>
+      <div class="splash-corner corner-bl"></div>
+      <div class="splash-corner corner-br"></div>
+      
+      <div class="splash-inner">
+        <div class="splash-seal-wrap">
+          <div class="splash-seal">
+            <svg class="splash-seal-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#C29227" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#C29227" stroke-width="1.2"/>
+              <circle cx="60" cy="60" r="38" fill="rgba(194, 146, 39, 0.08)"/>
+            </svg>
+            <div class="splash-seal-monogram">B</div>
+          </div>
+        </div>
+
+        <div class="splash-titles">
+          <p class="splash-eyebrow">ARCHIVUM DIGITALE · MMXXVI</p>
+          <h1 class="splash-title">BOOKONE</h1>
+          <div class="splash-flourish">
+            <span class="flourish-line"></span>
+            <span class="flourish-glyph">— * —</span>
+            <span class="flourish-line"></span>
+          </div>
+          <p class="splash-subtitle">BIBLIOTECA DIGITAL & REPOSITORIO CRIPTOGRÁFICO</p>
+          <p class="splash-quote">«Custodia inmutable del pensamiento humano mediante criptografía moderna»</p>
+        </div>
+
+        <div class="splash-loader">
+          <div class="splash-step-text" id="splashStepText">
+            Iniciando canal seguro TLS 1.3...
+          </div>
+          <div class="splash-crypto-tags">
+            <span>TLS 1.3</span> · <span>SHA-512</span> · <span>Ed25519</span> · <span>Argon2id</span>
+          </div>
+        </div>
+
+        <button id="splashSkipBtn" class="splash-skip-btn">
+          <span>Entrar a la Biblioteca</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Barra Superior Institucional -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="monogram-seal">B</div>
+        <div class="brand-text">
+          <span class="brand-title">BOOKONE</span>
+          <span class="brand-subtitle">BIBLIOTECA DIGITAL & REPOSITORIO CRIPTOGRÁFICO</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-tab active" data-target="catalogSection">
+          Catálogo de Obras
+        </button>
+        <button class="nav-tab" data-target="shelfSection" id="shelfTabBtn">
+          Mi Estantería <span class="badge" id="shelfBadge">0</span>
+        </button>
+        <button class="nav-tab" data-target="invoicesSection" id="invoicesTabBtn">
+          Ex Libris & Firmas Ed25519
+        </button>
+        <button class="nav-tab" data-target="adminSection" id="adminTabBtn">
+          Auditoría & Archivo
+        </button>
+      </nav>
+
+      <div class="nav-auth">
+        <div id="userWidget" class="user-pill hidden">
+          <div class="user-avatar" id="userInitial">L</div>
+          <div class="user-info">
+            <span class="user-name" id="userNameLabel">Lector</span>
+            <span class="user-role" id="userRoleBadge">CLIENTE</span>
+          </div>
+          <button id="logoutBtn" class="btn-logout" title="Cerrar sesión segura">Salir</button>
+        </div>
+        <button id="openAuthModalBtn" class="btn-primary-folio">
+          Acceso de Lectores
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cintillo de Seguridad & Estado Criptográfico -->
+  <aside class="security-banner">
+    <div class="security-banner-content">
+      <div class="sec-item"><span class="sec-dot green"></span> TLS 1.3 / HTTPS Activo</div>
+      <div class="sec-separator">·</div>
+      <div class="sec-item">Hash SHA-512 por Ejemplar</div>
+      <div class="sec-separator">·</div>
+      <div class="sec-item">No Repudio: Firmas Ed25519</div>
+      <div class="sec-separator">·</div>
+      <div class="sec-item">Estampado Personalizado (Fingerprinting)</div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- SECCIÓN 1: CATÁLOGO DE OBRAS -->
+    <section id="catalogSection" class="content-view active">
+      <div class="hero-curated">
+        <div class="hero-text-block">
+          <p class="hero-eyebrow">ACERVO HISTÓRICO Y CIENTÍFICO</p>
+          <h1 class="hero-headline">El conocimiento de los siglos, resguardado con rigor criptográfico.</h1>
+          <p class="hero-description">
+            Explore volúmenes clásicos y tratados de seguridad informática certificados con resúmenes SHA-512,
+            disponibles para consulta en sala y descarga individualizada con sello digital de titularidad.
+          </p>
+        </div>
+
+        <div class="catalog-controls">
+          <div class="search-box">
+            <svg class="search-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Buscar por título, autor, materia o ISBN..." autocomplete="off" />
+            <button id="clearSearchBtn" class="btn-icon" title="Limpiar búsqueda">&times;</button>
+          </div>
+
+          <div class="genre-filters" id="genreFilters">
+            <button class="filter-chip active" data-genre="TODOS">Todos los Fondos</button>
+            <button class="filter-chip" data-genre="Estrategia & Filosofía">Estrategia & Filosofía</button>
+            <button class="filter-chip" data-genre="Criptografía & Computación">Criptografía & Computación</button>
+            <button class="filter-chip" data-genre="Literatura Clásica">Literatura Clásica</button>
+            <button class="filter-chip" data-genre="Filosofía Estoica">Filosofía Estoica</button>
+            <button class="filter-chip" data-genre="Ficción & Vanguardia">Ficción & Vanguardia</button>
+            <button class="filter-chip" data-genre="Seguridad de la Información">Seguridad de la Información</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cuadrícula de Libros -->
+      <div class="catalog-summary">
+        <span id="catalogCount" class="catalog-count-label">Cargando acervo...</span>
+        <div class="catalog-legend">
+          <span class="legend-item"><span class="legend-swatch"></span> Ejemplar con SHA-512 Verificado</span>
+        </div>
+      </div>
+
+      <div id="catalogGrid" class="books-grid">
+        <!-- Renderizado dinámico desde app.js -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: MI ESTANTERÍA DIGITAL -->
+    <section id="shelfSection" class="content-view">
+      <div class="section-header">
+        <div>
+          <p class="hero-eyebrow">FONDO PRIVADO DEL LECTOR</p>
+          <h2 class="section-title">Mi Estantería Personal</h2>
+          <p class="section-lead">
+            Obras adquiridas o en préstamo concedido. Cada ejemplar incluye su descarga protegida
+            con huella individual y su Ex Libris criptográfico intransferible.
+          </p>
+        </div>
+      </div>
+
+      <div id="shelfContent" class="shelf-container">
+        <!-- Renderizado dinámico de libros en estantería -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: EX LIBRIS & COMPROBANTES FIRMADOS ED25519 -->
+    <section id="invoicesSection" class="content-view">
+      <div class="section-header">
+        <div>
+          <p class="hero-eyebrow">REGISTRO DE FE PÚBLICA DIGITAL</p>
+          <h2 class="section-title">Comprobantes de Concesión & Firmas Ed25519</h2>
+          <p class="section-lead">
+            Verificación matemática de no repudio sobre la curva Twisted Edwards 25519.
+            Cada certificado atestigua la legítima adquisición del ejemplar ante la biblioteca.
+          </p>
+        </div>
+      </div>
+
+      <div id="invoicesList" class="invoices-list">
+        <!-- Renderizado dinámico de comprobantes -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: AUDITORÍA & PANEL BIBLIOTECARIO -->
+    <section id="adminSection" class="content-view">
+      <div class="section-header">
+        <div>
+          <p class="hero-eyebrow">ADMINISTRACIÓN & SALVAGUARDA DE ACERVOS</p>
+          <h2 class="section-title">Panel de Control & Auditoría de Seguridad</h2>
+          <p class="section-lead">
+            Monitor de eventos criptográficos, registro inmutable de transacciones e incorporación
+            de nuevos títulos al catálogo de la Biblioteca BOOKONE.
+          </p>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Formulario de Catalogación de Nuevo Libro -->
+        <div class="admin-card">
+          <h3 class="admin-card-title">Catalogar Nuevo Volumen en BOOKONE</h3>
+          <p class="admin-card-subtitle">
+            Asigne metadatos formales e incorpore el archivo digital resguardado en <code class="code-tag">/productos</code>.
+          </p>
+
+          <form id="newBookForm" class="editorial-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Título de la Obra *</label>
+                <input name="title" placeholder="Ej. La República" required />
+              </div>
+              <div class="form-group">
+                <label>Autor / Autoría *</label>
+                <input name="author" placeholder="Ej. Platón" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Género / Fondo</label>
+                <input name="genre" placeholder="Ej. Filosofía Clásica" required />
+              </div>
+              <div class="form-group">
+                <label>ISBN / Identificador</label>
+                <input name="isbn" placeholder="Ej. 978-84-249-1400-0" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Archivo Físico en /productos *</label>
+                <input name="file_name" placeholder="Ej. el-arte-de-la-guerra-sun-tzu.txt" required />
+              </div>
+              <div class="form-group">
+                <label>Precio / Aportación ($)</label>
+                <input name="price" type="number" step="0.50" value="12.00" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Sinopsis Editorial</label>
+              <textarea name="synopsis" rows="3" placeholder="Descripción breve del contenido de la obra..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-stamp-action">
+              Sellar y Catalogar en BOOKONE
+            </button>
+          </form>
+        </div>
+
+        <!-- Registro de Eventos Criptográficos -->
+        <div class="admin-card">
+          <div class="card-header-flex">
+            <h3 class="admin-card-title">Registro de Auditoría Criptográfica</h3>
+            <button id="refreshEventsBtn" class="btn-icon-subtle" title="Actualizar bitácora">Actualizar</button>
+          </div>
+          <p class="admin-card-subtitle">
+            Bitácora de seguridad: autenticaciones, descargas, sellado de firmas y cálculo de hashes.
+          </p>
+
+          <div id="eventsLog" class="events-log-container">
+            <p class="placeholder-text">Cargando eventos de seguridad...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: FOLIO DE LECTURA DIGITAL (IN-APP E-READER) -->
+  <div id="readerModal" class="modal-overlay hidden">
+    <div class="reader-modal-dialog">
+      <div class="reader-modal-header">
+        <div class="reader-title-group">
+          <span class="reader-pretitle" id="readerGenre">FONDO CLÁSICO</span>
+          <h2 class="reader-book-title" id="readerBookTitle">Título de la Obra</h2>
+          <span class="reader-book-author" id="readerBookAuthor">Autor</span>
+        </div>
+
+        <div class="reader-controls">
+          <button id="fontDecBtn" class="reader-tool-btn" title="Disminuir tamaño de letra">A-</button>
+          <button id="fontIncBtn" class="reader-tool-btn" title="Aumentar tamaño de letra">A+</button>
+          <button id="closeReaderBtn" class="reader-close-btn" title="Cerrar lectura">&times;</button>
+        </div>
+      </div>
+
+      <div class="reader-integrity-bar">
+        <span class="reader-hash-badge">SHA-512: <span id="readerHashVal">calculando...</span></span>
+        <span class="reader-seal">BOOKONE DIGITAL FOLIO · REPOSITORIO AUTORIZADO</span>
+      </div>
+
+      <div class="reader-modal-body" id="readerBody">
+        <div class="reader-paper" id="readerPaper">
+          <div id="readerText" class="reader-folio-text">
+            Cargando texto del ejemplar...
+          </div>
+        </div>
+      </div>
+
+      <div class="reader-modal-footer">
+        <span class="reader-footer-note">Lectura de preservación bajo la custodia de BOOKONE</span>
+        <button id="readerAcquireBtn" class="btn-primary-folio">
+          Adquirir / Descargar Ejemplar Completo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: AUTENTICACIÓN / ACCESO DE LECTORES -->
+  <div id="authModal" class="modal-overlay hidden">
+    <div class="auth-modal-dialog">
+      <div class="auth-modal-header">
+        <div class="auth-seal">B</div>
+        <h2 class="auth-title">Acceso a la Biblioteca BOOKONE</h2>
+        <p class="auth-subtitle">Ingrese su credencial de lector o regístrese como nuevo usuario.</p>
+        <button id="closeAuthModalBtn" class="modal-close-icon">&times;</button>
+      </div>
+
+      <!-- Tabs de Login / Registro -->
+      <div class="auth-tabs">
+        <button id="tabLoginBtn" class="auth-tab-btn active">Iniciar Sesión</button>
+        <button id="tabRegisterBtn" class="auth-tab-btn">Nuevo Lector</button>
+      </div>
+
+      <div class="auth-modal-body">
+        <!-- Formulario Iniciar Sesión -->
+        <form id="loginForm" class="editorial-form">
+          <div class="form-group">
+            <label>Correo Electrónico del Lector</label>
+            <input type="email" name="email" value="lector@bookone.org" placeholder="lector@bookone.org" required />
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" name="password" value="cliente123" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn-stamp-action">
+            Ingresar a BOOKONE
+          </button>
+        </form>
+
+        <!-- Formulario Registro -->
+        <form id="registerForm" class="editorial-form hidden">
+          <div class="form-group">
+            <label>Nombre Completo del Lector</label>
+            <input name="name" placeholder="Ej. Sor Juana Inés de la Cruz" required />
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" name="email" placeholder="usuario@correo.com" required />
+          </div>
+          <div class="form-group">
+            <label>Contraseña (Argon2id)</label>
+            <input type="password" name="password" placeholder="Contraseña segura" required />
+          </div>
+          <button type="submit" class="btn-stamp-action">
+            Registrar Credencial de Lector
+          </button>
+        </form>
+
+        <!-- Cuentas de Demostración Rápida -->
+        <div class="quick-credentials">
+          <p class="quick-label">Perfiles de prueba disponibles:</p>
+          <div class="quick-buttons">
+            <button type="button" class="btn-quick-user" data-user="lector">
+              <strong>Lector</strong> (lector@bookone.org)
+            </button>
+            <button type="button" class="btn-quick-user" data-user="curador">
+              <strong>Curador</strong> (curador@bookone.org)
+            </button>
+            <button type="button" class="btn-quick-user" data-user="admin">
+              <strong>Bibliotecario</strong> (admin@bookone.org)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EX LIBRIS CRIPTOGRÁFICO & DETALLE DE COMPROBANTE -->
+  <div id="exLibrisModal" class="modal-overlay hidden">
+    <div class="exlibris-modal-dialog">
+      <div class="exlibris-plate">
+        <div class="plate-ornament-top">BOOKONE EX LIBRIS</div>
+        <h2 class="plate-title">CERTIFICADO CRIPTOGRÁFICO DE CONCESIÓN</h2>
+        <div class="plate-rule"></div>
+        <div id="exLibrisBody" class="plate-body">
+          <!-- Renderizado dinámico del certificado -->
+        </div>
+        <div class="plate-signature-box" id="exLibrisSigBox">
+          <!-- Firma Ed25519 renderizada -->
+        </div>
+        <div class="plate-rule"></div>
+        <div class="plate-footer">
+          <span>CURVA ED25519 (RFC 8032) · INTEGRIDAD SHA-512</span>
+          <button id="closeExLibrisBtn" class="btn-secondary-folio">Cerrar Certificado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor de Alertas / Notificaciones Toast -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Pie de Página Institucional -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4 class="footer-heading">BOOKONE</h4>
+        <p class="footer-text">
+          Biblioteca digital y repositorio de preservación de documentos electrónicos.
+          Diseñado para garantizar autenticidad, trazabilidad y libre acceso responsable
+          a las obras capitales de la literatura y el pensamiento.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Garantías Criptográficas</h4>
+        <ul class="footer-list">
+          <li><strong>Confidencialidad:</strong> Túnel TLS 1.3 / Certificados Locales</li>
+          <li><strong>Integridad de Obra:</strong> Hashing criptográfico SHA-512</li>
+          <li><strong>Autenticidad de Titular:</strong> Argon2id con salt aleatorio</li>
+          <li><strong>No Repudio:</strong> Firmas digitales asimétricas Ed25519</li>
+          <li><strong>Trazabilidad:</strong> Esteganografía & Fingerprinting de descargas</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Cátedra de Seguridad</h4>
+        <p class="footer-text">
+          Proyecto académico de Seguridad de la Información II.<br />
+          Plataforma de preservación de activos digitales & distribución con derechos trazables.
+        </p>
+        <p class="footer-copyright">
+          © 2026 BOOKONE — Todos los derechos reservados.
+        </p>
+        <button id="replaySplashBtn" class="btn-replay-splash" title="Reproducir pantalla de bienvenida">
+          Ver Portada / Splash Screen
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

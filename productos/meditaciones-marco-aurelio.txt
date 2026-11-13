@@ -1,0 +1,47 @@
+================================================================================
+                           BIBLIOTECA DIGITAL BOOKONE
+================================================================================
+Título: Meditaciones
+Autor: Marco Aurelio Antonino
+Categoría: Filosofía Estoica y Ética
+Edición: Cuadernos de Filosofía Perenne — Archivo Digital BOOKONE
+Identificador Criptográfico: BOOKONE-FIL-004
+Norma de Integridad: SHA-512 / Firma Digital Ed25519
+================================================================================
+
+LIBRO II: EN EL CAMPAMENTO JUNTO AL GRANUA
+1. Al despuntar la aurora, hazte estas consideraciones previas: «Me encontraré con
+   un indiscreto, un ingrato, un insolente, un embustero, un envidioso, un insociable.
+   Todo eso les acontece por ignorancia de los bienes y de los males. Pero yo,
+   que he observado la naturaleza del bien, que es bello, y la del mal, que es
+   vergonzoso, y la del que comete la falta, que es semejante a mí —no sólo porque
+   participa de la misma sangre o de la misma semilla, sino porque participa de la
+   misma inteligencia y de una porción de la divinidad—, no puedo recibir daño de
+   ninguno de ellos, pues nadie me puede mancillar con lo vil; ni tampoco puedo
+   irritarme contra quien es de mi linaje, ni odiarle.»
+
+2. Pues hemos nacido para cooperar, al igual que los pies, las manos, los párpados,
+   las hileras de los dientes superiores e inferiores. Obrar, por tanto, como
+   adversarios los unos de los otros es contrario a la naturaleza. Y es actuar
+   como adversario el irritarse y desentenderse.
+
+3. Este ser que soy yo, cualquiera que sea, se compone de carne, soplo vital y el
+   principio rector. Desdeña los libros corporales; no te disperses: no te es lícito.
+   Sino como quien ya se está muriendo, desprecia la carne: sangre, huesos, una
+   red diminuta tejida de nervios, venas y arterias. Considera también el soplo
+   vital: aire, no siempre el mismo, sino a cada instante expelido y de nuevo aspirado.
+   En tercer lugar queda la parte soberana: piensa así: eres viejo; no consientas
+   más tiempo que sea esclava, que sea arrastrada de acá para allá por impulsos
+   egoístas, ni que se indigne con el destino presente o tema el futuro.
+
+LIBRO IV: SOBRE LA SERENIDAD INTERIOR
+3. Los hombres buscan retiros en el campo, en la costa y en el monte. Tú también
+   sueles desear ardientemente tales cosas. Pero todo eso es de la mayor vulgaridad,
+   cuando te es posible, en el momento que te plazca, retirarte en ti mismo. En
+   ninguna parte encuentra el hombre un retiro más apacible ni más tranquilo que
+   en su propia alma.
+
+================================================================================
+Sello de Preservación Digital: BOOKONE ARCHIVE - Integridad Garantizada
+Biblioteca Digital BOOKONE — Archivo Filosófico
+================================================================================
