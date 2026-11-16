@@ -1,6 +1,6 @@
 /* =============================================================================
    BOOKONE — BIBLIOTECA DIGITAL & ARCHIVO CRIPTOGRÁFICO
-   Estilo Editorial y Literario Clásico (Sin clichés genéricos de IA)
+   Estilo Editorial y Literario Clásico
    ============================================================================= */
 
 :root {
@@ -21,6 +21,7 @@
   /* Acentos Clásicos de Encuadernación */
   --accent-crimson: #85222e;       /* Rojo Veneciano / Sangre de Toro */
   --accent-crimson-hover: #6a1923;
+  --accent-burgundy: #85222e;
   --accent-gold: #c29227;          /* Oro Quemado / Pan de Oro */
   --accent-gold-light: #f7e8c3;
   --accent-forest: #1e3f2b;        /* Cuero Verde Bosque */
@@ -106,7 +107,7 @@ body {
   font-size: 24px;
   font-weight: 900;
   color: var(--accent-gold);
-  box-shadow: inset 0 0 6px rgba(194, 146, 39, 0.3), 0 2px 6px rgba(0,0,0,0.4);
+  box-shadow: inset 0 0 6px rgba(194, 146, 39, 0.3), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .brand-text {
@@ -157,6 +158,7 @@ body {
   align-items: center;
   gap: 8px;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .nav-tab:hover {
@@ -199,15 +201,23 @@ body {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   box-shadow: 0 2px 8px rgba(194, 146, 39, 0.25);
   transition: all 0.2s ease;
 }
 
-.btn-primary-folio:hover {
+.btn-primary-folio:hover:not(:disabled) {
   background: linear-gradient(135deg, #d4a332, #bc8c20);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(194, 146, 39, 0.35);
+}
+
+.btn-primary-folio:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-glyph {
@@ -413,7 +423,7 @@ body {
   border-radius: 4px;
   padding: 10px 16px;
   max-width: 680px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: border-color 0.2s;
 }
 
@@ -426,6 +436,12 @@ body {
   font-size: 16px;
   color: var(--ink-muted);
   margin-right: 12px;
+}
+
+.search-icon-svg {
+  color: var(--ink-muted);
+  margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .search-box input {
@@ -447,9 +463,13 @@ body {
   background: transparent;
   border: none;
   color: var(--ink-muted);
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   padding: 4px;
+}
+
+.btn-icon:hover {
+  color: var(--ink-primary);
 }
 
 .genre-filters {
@@ -564,8 +584,36 @@ body {
   height: 34px;
   background: var(--accent-crimson);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
   z-index: 3;
+}
+
+/* Imagen de Portada del Volumen */
+.book-cover-media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 22px 18px 32px;
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.book-cover-media img {
+  height: 220px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 8px 18px rgba(25, 22, 19, 0.22);
+  display: block;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.book-card:hover .book-cover-media img {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(25, 22, 19, 0.28);
 }
 
 /* Cubierta de Libro */
@@ -715,10 +763,20 @@ body {
   transition: all 0.15s;
 }
 
-.btn-acquire:hover {
+.btn-acquire:hover:not(:disabled) {
   background: var(--accent-crimson-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(133, 34, 46, 0.35);
+}
+
+.btn-acquire:disabled {
+  background: var(--accent-forest);
+  border-color: #163020;
+  color: #e6f4ea;
+  opacity: 0.85;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
 }
 
 /* -----------------------------------------------------------------------------
@@ -800,6 +858,7 @@ body {
   font-weight: 700;
   color: var(--ink-primary);
   margin-bottom: 4px;
+  padding-right: 110px;
 }
 
 .shelf-book-author {
@@ -835,7 +894,7 @@ body {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
@@ -855,6 +914,7 @@ body {
   padding: 8px 10px;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.15s;
 }
 
 .btn-shelf-cert:hover {
@@ -1006,11 +1066,13 @@ body {
   padding: 4px 10px;
   border-radius: 3px;
   cursor: pointer;
+  transition: all 0.15s;
 }
 
 .btn-icon-subtle:hover {
   background: var(--bg-surface);
   color: var(--ink-primary);
+  border-color: var(--border-dark);
 }
 
 .editorial-form {
@@ -1054,8 +1116,16 @@ body {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   border-color: var(--accent-crimson);
+}
+
+.form-group input[readonly] {
+  background: var(--bg-surface);
+  color: var(--ink-secondary);
+  font-family: monospace;
+  font-size: 12px;
 }
 
 .code-tag {
@@ -1086,9 +1156,14 @@ body {
   transition: all 0.2s;
 }
 
-.btn-stamp-action:hover {
+.btn-stamp-action:hover:not(:disabled) {
   background: var(--accent-crimson);
   border-color: var(--accent-crimson);
+}
+
+.btn-stamp-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .events-log-container {
@@ -1142,7 +1217,7 @@ body {
 }
 
 /* -----------------------------------------------------------------------------
-   MODALES (E-Reader, Auth, Ex Libris)
+   MODALES (E-Reader, Auth, Carrito/Pago Simulado, Ex Libris)
    ----------------------------------------------------------------------------- */
 .modal-overlay {
   position: fixed;
@@ -1154,6 +1229,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow-y: auto;
   animation: fadeIn 0.15s ease-out;
 }
 
@@ -1223,13 +1299,22 @@ body {
   cursor: pointer;
 }
 
+.reader-tool-btn:hover {
+  background: var(--bg-surface);
+  border-color: var(--ink-primary);
+}
+
 .reader-close-btn {
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--ink-muted);
   cursor: pointer;
   padding: 4px 8px;
+}
+
+.reader-close-btn:hover {
+  color: var(--ink-primary);
 }
 
 .reader-integrity-bar {
@@ -1240,6 +1325,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .reader-hash-badge span {
@@ -1275,6 +1362,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .reader-footer-note {
@@ -1283,15 +1371,16 @@ body {
   color: var(--ink-muted);
 }
 
-/* Modal de Autenticación */
+/* Modal de Autenticación & Carrito */
 .auth-modal-dialog {
   background: #ffffff;
   border: 1px solid var(--border-dark);
   border-radius: 6px;
-  max-width: 440px;
+  max-width: 460px;
   width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
   box-shadow: var(--shadow-floating);
-  overflow: hidden;
   position: relative;
 }
 
@@ -1305,9 +1394,19 @@ body {
 }
 
 .auth-seal {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 8px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
   font-size: 20px;
+  font-weight: 900;
   color: var(--accent-gold);
-  margin-bottom: 6px;
+  background: rgba(194, 146, 39, 0.08);
 }
 
 .auth-title {
@@ -1320,6 +1419,7 @@ body {
 .auth-subtitle {
   font-size: 12px;
   color: #b5a995;
+  line-height: 1.45;
 }
 
 .modal-close-icon {
@@ -1329,8 +1429,13 @@ body {
   background: transparent;
   border: none;
   color: #a89a87;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close-icon:hover {
+  color: #ffffff;
 }
 
 .auth-tabs {
@@ -1343,11 +1448,16 @@ body {
   flex: 1;
   background: transparent;
   border: none;
-  padding: 12px;
-  font-size: 13px;
+  padding: 12px 8px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--ink-muted);
   cursor: pointer;
+  transition: all 0.15s;
+}
+
+.auth-tab-btn:hover {
+  color: var(--ink-primary);
 }
 
 .auth-tab-btn.active {
@@ -1396,10 +1506,12 @@ body {
   border-color: var(--accent-gold);
 }
 
-/* Modal Ex Libris Criptográfico */
+/* Modal Ex Libris Criptográfico & Comprobante */
 .exlibris-modal-dialog {
-  max-width: 600px;
+  max-width: 680px;
   width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
 }
 
 .exlibris-plate {
@@ -1460,6 +1572,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   font-size: 11px;
   color: var(--ink-muted);
   margin-top: 12px;
@@ -1468,11 +1581,19 @@ body {
 .btn-secondary-folio {
   background: transparent;
   border: 1px solid var(--border-dark);
-  padding: 6px 14px;
+  color: var(--ink-primary);
+  padding: 7px 14px;
+  font-family: var(--font-ui);
   font-size: 12px;
   font-weight: 600;
   border-radius: 3px;
   cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-secondary-folio:hover {
+  background: var(--bg-surface);
+  border-color: var(--ink-primary);
 }
 
 /* -----------------------------------------------------------------------------
@@ -1495,12 +1616,13 @@ body {
   border-radius: 4px;
   padding: 14px 18px;
   font-size: 13.5px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   gap: 12px;
   min-width: 280px;
   max-width: 420px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   animation: slideIn 0.2s ease-out;
 }
 
@@ -1568,34 +1690,26 @@ body {
   color: #7d7262;
 }
 
-.hidden {
-  display: none !important;
+.btn-replay-splash {
+  background: transparent;
+  border: 1px dashed #524434;
+  color: #b5a48f;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.15s;
 }
 
-/* -----------------------------------------------------------------------------
-   Responsive Media Queries
-   ----------------------------------------------------------------------------- */
-@media (max-width: 960px) {
-  .nav-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .nav-links {
-    overflow-x: auto;
-  }
-  .admin-grid {
-    grid-template-columns: 1fr;
-  }
-  .invoice-record-card {
-    grid-template-columns: 1fr;
-  }
-  .footer-container {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .hero-headline {
-    font-size: 28px;
-  }
+.btn-replay-splash:hover {
+  border-color: var(--accent-gold);
+  color: #f7f4ed;
+  background: #251e18;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* -----------------------------------------------------------------------------
@@ -1610,7 +1724,7 @@ html.splash-already-seen #splashScreen {
   inset: 0;
   z-index: 99999;
   background-color: #14110e;
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 35%, rgba(194, 146, 39, 0.08) 0%, transparent 65%),
     radial-gradient(#2b2219 0.75px, transparent 0.75px);
   background-size: 100% 100%, 20px 20px;
@@ -1637,7 +1751,7 @@ html.splash-already-seen #splashScreen {
   background: linear-gradient(180deg, #1d1814 0%, #17130f 100%);
   border: 2px solid var(--accent-gold);
   border-radius: 4px;
-  box-shadow: 
+  box-shadow:
     0 0 0 6px #14110e,
     0 0 0 7px rgba(194, 146, 39, 0.35),
     0 24px 60px rgba(0, 0, 0, 0.75);
@@ -1791,7 +1905,7 @@ html.splash-already-seen #splashScreen {
   margin: 0 auto 24px;
 }
 
-/* Bloque de Estado Criptográfico (Sin barra de carga) */
+/* Bloque de Estado Criptográfico */
 .splash-loader {
   width: 100%;
   max-width: 420px;
@@ -1847,31 +1961,45 @@ html.splash-already-seen #splashScreen {
   transform: translateY(-1px);
 }
 
-.btn-replay-splash {
-  background: transparent;
-  border: 1px dashed #524434;
-  color: #b5a48f;
-  font-size: 11px;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.15s;
-}
-
-.btn-replay-splash:hover {
-  border-color: var(--accent-gold);
-  color: #f7f4ed;
-  background: #251e18;
-}
-
-.search-icon-svg {
-  color: var(--ink-muted);
-  margin-right: 10px;
-  flex-shrink: 0;
+/* -----------------------------------------------------------------------------
+   Responsive Media Queries
+   ----------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-links {
+    overflow-x: auto;
+  }
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+  .invoice-record-card {
+    grid-template-columns: 1fr;
+  }
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .hero-headline {
+    font-size: 28px;
+  }
 }
 
 @media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .reader-modal-body {
+    padding: 22px 20px;
+  }
+  .exlibris-plate {
+    padding: 24px 18px;
+  }
+  .plate-footer {
+    flex-direction: column;
+  }
   .splash-frame {
     padding: 32px 20px 24px;
   }

@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BOOKONE — Biblioteca Digital & Repositorio Criptográfico</title>
-  
+
   <!-- Pre-verificación de sesión para evitar parpadeo de splash al recargar -->
   <script>
-    if (sessionStorage.getItem('bookone_splash_seen')) {
-      document.documentElement.classList.add('splash-already-seen');
+    try {
+      if (sessionStorage.getItem('bookone_splash_seen')) {
+        document.documentElement.classList.add('splash-already-seen');
+      }
+    } catch (e) {
+      // Continuar normalmente si sessionStorage está bloqueado
     }
   </script>
 
@@ -16,12 +20,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  
+
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
 
-  <!-- Pantalla de Inicio / Splash Screen Editorial BOOKONE (Sin barra de carga) -->
+  <!-- Pantalla de Inicio / Splash Screen Editorial BOOKONE -->
   <aside id="splashScreen" class="splash-screen" role="dialog" aria-modal="true" aria-label="Bienvenida a BOOKONE">
     <div class="splash-backdrop"></div>
     <div class="splash-frame">
@@ -29,7 +33,7 @@
       <div class="splash-corner corner-tr"></div>
       <div class="splash-corner corner-bl"></div>
       <div class="splash-corner corner-br"></div>
-      
+
       <div class="splash-inner">
         <div class="splash-seal-wrap">
           <div class="splash-seal">
@@ -85,13 +89,17 @@
         <button class="nav-tab active" data-target="catalogSection">
           Catálogo de Obras
         </button>
+        <button class="nav-tab" type="button" id="openCartModalBtn">
+          Carrito <span class="badge" id="cartBadge">0</span>
+        </button>
         <button class="nav-tab" data-target="shelfSection" id="shelfTabBtn">
           Mi Estantería <span class="badge" id="shelfBadge">0</span>
         </button>
         <button class="nav-tab" data-target="invoicesSection" id="invoicesTabBtn">
-          Ex Libris & Firmas Ed25519
+          Comprobantes & Firmas Ed25519
         </button>
-        <button class="nav-tab" data-target="adminSection" id="adminTabBtn">
+        <!-- Oculto por defecto; solo visible si la sesión tiene permiso administrativo -->
+        <button class="nav-tab hidden" data-target="adminSection" id="adminTabBtn">
           Auditoría & Archivo
         </button>
       </nav>
@@ -134,8 +142,9 @@
           <p class="hero-eyebrow">ACERVO HISTÓRICO Y CIENTÍFICO</p>
           <h1 class="hero-headline">El conocimiento de los siglos, resguardado con rigor criptográfico.</h1>
           <p class="hero-description">
-            Explore volúmenes clásicos y tratados de seguridad informática certificados con resúmenes SHA-512,
-            disponibles para consulta en sala y descarga individualizada con sello digital de titularidad.
+            Explore volúmenes clásicos y tratados de seguridad informática certificados con resúmenes SHA-512.
+            Agregue ejemplares a su carrito, complete el pago simulado y obtenga su comprobante firmado con Ed25519
+            junto a su descarga con sello individual de titularidad.
           </p>
         </div>
 
@@ -181,8 +190,8 @@
           <p class="hero-eyebrow">FONDO PRIVADO DEL LECTOR</p>
           <h2 class="section-title">Mi Estantería Personal</h2>
           <p class="section-lead">
-            Obras adquiridas o en préstamo concedido. Cada ejemplar incluye su descarga protegida
-            con huella individual y su Ex Libris criptográfico intransferible.
+            Obras adquiridas tras aprobar el pago simulado. Cada ejemplar incluye su descarga protegida
+            con huella individual (Fingerprinting) y su comprobante firmado con Ed25519.
           </p>
         </div>
       </div>
@@ -197,10 +206,10 @@
       <div class="section-header">
         <div>
           <p class="hero-eyebrow">REGISTRO DE FE PÚBLICA DIGITAL</p>
-          <h2 class="section-title">Comprobantes de Concesión & Firmas Ed25519</h2>
+          <h2 class="section-title">Comprobantes de Pago & Firmas Ed25519</h2>
           <p class="section-lead">
             Verificación matemática de no repudio sobre la curva Twisted Edwards 25519.
-            Cada certificado atestigua la legítima adquisición del ejemplar ante la biblioteca.
+            Cada comprobante respalda la orden, el pago simulado registrado en PostgreSQL y los ejemplares adquiridos.
           </p>
         </div>
       </div>
@@ -210,21 +219,19 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 4: AUDITORÍA & PANEL BIBLIOTECARIO -->
-    <section id="adminSection" class="content-view">
+    <!-- SECCIÓN 4: AUDITORÍA & ARCHIVO (OCULTA SIN PERMISO ADMINISTRATIVO) -->
+    <section id="adminSection" class="content-view hidden">
       <div class="section-header">
         <div>
           <p class="hero-eyebrow">ADMINISTRACIÓN & SALVAGUARDA DE ACERVOS</p>
           <h2 class="section-title">Panel de Control & Auditoría de Seguridad</h2>
           <p class="section-lead">
-            Monitor de eventos criptográficos, registro inmutable de transacciones e incorporación
-            de nuevos títulos al catálogo de la Biblioteca BOOKONE.
+            Monitor de eventos criptográficos e incorporación de nuevos títulos al catálogo de BOOKONE.
           </p>
         </div>
       </div>
 
       <div class="admin-grid">
-        <!-- Formulario de Catalogación de Nuevo Libro -->
         <div class="admin-card">
           <h3 class="admin-card-title">Catalogar Nuevo Volumen en BOOKONE</h3>
           <p class="admin-card-subtitle">
@@ -266,6 +273,11 @@
             </div>
 
             <div class="form-group">
+              <label>Ruta de Portada en /covers</label>
+              <input name="cover_image" placeholder="Ej. /covers/mi-libro.jpg" />
+            </div>
+
+            <div class="form-group">
               <label>Sinopsis Editorial</label>
               <textarea name="synopsis" rows="3" placeholder="Descripción breve del contenido de la obra..."></textarea>
             </div>
@@ -276,7 +288,6 @@
           </form>
         </div>
 
-        <!-- Registro de Eventos Criptográficos -->
         <div class="admin-card">
           <div class="card-header-flex">
             <h3 class="admin-card-title">Registro de Auditoría Criptográfica</h3>
@@ -328,26 +339,29 @@
       <div class="reader-modal-footer">
         <span class="reader-footer-note">Lectura de preservación bajo la custodia de BOOKONE</span>
         <button id="readerAcquireBtn" class="btn-primary-folio">
-          Adquirir / Descargar Ejemplar Completo
+          Agregar al Carrito y Adquirir
         </button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: AUTENTICACIÓN / ACCESO DE LECTORES -->
+  <!-- MODAL: AUTENTICACIÓN / ACCESO DE LECTORES (SOLO CLIENTES) -->
   <div id="authModal" class="modal-overlay hidden">
     <div class="auth-modal-dialog">
       <div class="auth-modal-header">
         <div class="auth-seal">B</div>
-        <h2 class="auth-title">Acceso a la Biblioteca BOOKONE</h2>
-        <p class="auth-subtitle">Ingrese su credencial de lector o regístrese como nuevo usuario.</p>
+        <h2 class="auth-title">Portal de Lectores BOOKONE</h2>
+        <p class="auth-subtitle">
+          Acceso web exclusivo para lectores (<strong>CLIENTE</strong>). La administración del sistema se realiza vía SSH.
+        </p>
         <button id="closeAuthModalBtn" class="modal-close-icon">&times;</button>
       </div>
 
-      <!-- Tabs de Login / Registro -->
+      <!-- Tabs de Login / Registro / Recuperación -->
       <div class="auth-tabs">
         <button id="tabLoginBtn" class="auth-tab-btn active">Iniciar Sesión</button>
         <button id="tabRegisterBtn" class="auth-tab-btn">Nuevo Lector</button>
+        <button id="tabRecoverBtn" class="auth-tab-btn">Recuperar Clave</button>
       </div>
 
       <div class="auth-modal-body">
@@ -362,7 +376,7 @@
             <input type="password" name="password" value="cliente123" placeholder="••••••••" required />
           </div>
           <button type="submit" class="btn-stamp-action">
-            Ingresar a BOOKONE
+            Ingresar como Lector
           </button>
         </form>
 
@@ -377,26 +391,45 @@
             <input type="email" name="email" placeholder="usuario@correo.com" required />
           </div>
           <div class="form-group">
-            <label>Contraseña (Argon2id)</label>
-            <input type="password" name="password" placeholder="Contraseña segura" required />
+            <label>Contraseña (mínimo 8 caracteres · Argon2id)</label>
+            <input type="password" name="password" minlength="8" placeholder="Contraseña segura" required />
           </div>
           <button type="submit" class="btn-stamp-action">
             Registrar Credencial de Lector
           </button>
         </form>
 
-        <!-- Cuentas de Demostración Rápida -->
+        <!-- Formulario Recuperación de Contraseña (1 uso) -->
+        <form id="recoverForm" class="editorial-form hidden">
+          <div class="form-group">
+            <label>Correo Electrónico Registrado</label>
+            <input type="email" name="email" placeholder="lector@bookone.org" required />
+          </div>
+          <button type="submit" class="btn-secondary-folio" style="width: 100%;">
+            Solicitar Token Temporal (1 uso)
+          </button>
+
+          <div id="resetStepBox" class="hidden" style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed #d1c0a5;">
+            <div class="form-group">
+              <label>Token de Recuperación Emitido</label>
+              <input type="text" id="resetTokenInput" readonly />
+            </div>
+            <div class="form-group">
+              <label>Nueva Contraseña (mínimo 8 caracteres)</label>
+              <input type="password" id="resetNewPasswordInput" minlength="8" placeholder="Nueva contraseña" />
+            </div>
+            <button type="button" id="confirmResetBtn" class="btn-stamp-action">
+              Guardar Nueva Contraseña
+            </button>
+          </div>
+        </form>
+
+        <!-- Cuenta de Demostración para Lector -->
         <div class="quick-credentials">
-          <p class="quick-label">Perfiles de prueba disponibles:</p>
+          <p class="quick-label">Cuenta de lector de prueba (administración vía SSH):</p>
           <div class="quick-buttons">
             <button type="button" class="btn-quick-user" data-user="lector">
-              <strong>Lector</strong> (lector@bookone.org)
-            </button>
-            <button type="button" class="btn-quick-user" data-user="curador">
-              <strong>Curador</strong> (curador@bookone.org)
-            </button>
-            <button type="button" class="btn-quick-user" data-user="admin">
-              <strong>Bibliotecario</strong> (admin@bookone.org)
+              <strong>Lector Registrado</strong> (lector@bookone.org)
             </button>
           </div>
         </div>
@@ -404,23 +437,95 @@
     </div>
   </div>
 
-  <!-- MODAL: EX LIBRIS CRIPTOGRÁFICO & DETALLE DE COMPROBANTE -->
+  <!-- MODAL: CARRITO & MÓDULO DE PAGO SIMULADO -->
+  <div id="cartModal" class="modal-overlay hidden">
+    <div class="auth-modal-dialog" style="max-width: 640px;">
+      <div class="auth-modal-header">
+        <div class="auth-seal">B</div>
+        <h2 class="auth-title">Carrito & Módulo de Pago Simulado</h2>
+        <p class="auth-subtitle">
+          Revise sus ejemplares e ingrese datos ficticios de prueba para generar la orden y el comprobante firmado.
+        </p>
+        <button id="closeCartModalBtn" class="modal-close-icon">&times;</button>
+      </div>
+
+      <div class="auth-modal-body">
+        <div id="cartItemsList" style="margin-bottom: 14px;"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #faf5eb; border: 1px solid #dfd3be; border-radius: 6px; margin-bottom: 16px;">
+          <span style="font-weight: 600;">Total de la Orden:</span>
+          <strong id="cartTotalAmount" style="font-size: 18px; color: var(--accent-burgundy, #7a2631);">$0.00 USD</strong>
+        </div>
+
+        <form id="simulatedPaymentForm" class="editorial-form">
+          <p style="font-size: 12px; color: var(--ink-muted); margin-bottom: 10px;">
+            <strong>Simulación de pago:</strong> No utilice tarjetas reales ni datos bancarios reales. Los datos ficticios se registrarán en PostgreSQL como evidencia de la transacción.
+          </p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre del Titular Ficticio *</label>
+              <input type="text" name="payer_name" placeholder="Ej. Lector de Prueba BOOKONE" required />
+            </div>
+            <div class="form-group">
+              <label>Método de Pago Simulado *</label>
+              <select name="payment_method" style="width: 100%; padding: 10px; border: 1px solid #d5c7b2; border-radius: 6px; background: #fff;" required>
+                <option value="TARJETA_SIMULADA_PRUEBA">Tarjeta Simulada de Prueba</option>
+                <option value="CREDITO_ACADEMICO_BOOKONE">Crédito Académico BOOKONE</option>
+                <option value="MONEDERO_DIGITAL_FICTICIO">Monedero Digital Ficticio</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Número Ficticio de Prueba (16 dígitos) *</label>
+              <input type="text" name="card_number" maxlength="19" placeholder="Ej. 4532 0151 1283 4242" required />
+            </div>
+            <div class="form-group">
+              <label>Expiración / Código Ficticio</label>
+              <input type="text" name="card_expiry" placeholder="12/29 · 000" value="12/29 · 000" />
+            </div>
+          </div>
+
+          <button type="submit" id="checkoutSubmitBtn" class="btn-stamp-action">
+            Confirmar Pago Simulado y Emitir Comprobante Ed25519
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: COMPROBANTE DE PAGO & EX LIBRIS CRIPTOGRÁFICO ED25519 -->
   <div id="exLibrisModal" class="modal-overlay hidden">
-    <div class="exlibris-modal-dialog">
+    <div class="exlibris-modal-dialog" style="max-width: 680px;">
       <div class="exlibris-plate">
-        <div class="plate-ornament-top">BOOKONE EX LIBRIS</div>
-        <h2 class="plate-title">CERTIFICADO CRIPTOGRÁFICO DE CONCESIÓN</h2>
+        <div class="plate-ornament-top">BOOKONE · COMPROBANTE OFICIAL & EX LIBRIS</div>
+        <h2 class="plate-title">COMPROBANTE DE COMPRA FIRMADO DIGITALMENTE</h2>
         <div class="plate-rule"></div>
         <div id="exLibrisBody" class="plate-body">
-          <!-- Renderizado dinámico del certificado -->
+          <!-- Renderizado dinámico del comprobante y datos de pago simulado -->
         </div>
-        <div class="plate-signature-box" id="exLibrisSigBox">
+        <div class="plate-signature-box" id="exLibrisSigBox" style="word-break: break-all;">
           <!-- Firma Ed25519 renderizada -->
         </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 14px 0;">
+          <button type="button" id="verifyOriginalBtn" class="btn-primary-folio">
+            Verificar Firma Digital Original
+          </button>
+          <button type="button" id="verifyTamperedBtn" class="btn-secondary-folio">
+            Simular Alteración (Probar No Repudio)
+          </button>
+        </div>
+        <div id="verifyStatusMsg" style="text-align: center; font-size: 13px; font-weight: 600; margin-bottom: 10px;"></div>
+
+        <div id="exLibrisDownloads" style="margin-top: 10px;"></div>
+
         <div class="plate-rule"></div>
         <div class="plate-footer">
           <span>CURVA ED25519 (RFC 8032) · INTEGRIDAD SHA-512</span>
-          <button id="closeExLibrisBtn" class="btn-secondary-folio">Cerrar Certificado</button>
+          <button id="closeExLibrisBtn" class="btn-secondary-folio">Cerrar Comprobante</button>
         </div>
       </div>
     </div>
@@ -456,7 +561,7 @@
         <h4 class="footer-heading">Cátedra de Seguridad</h4>
         <p class="footer-text">
           Proyecto académico de Seguridad de la Información II.<br />
-          Plataforma de preservación de activos digitales & distribución con derechos trazables.
+          Administración del servidor restringida vía SSH y almacenamiento persistente en PostgreSQL.
         </p>
         <p class="footer-copyright">
           © 2026 BOOKONE — Todos los derechos reservados.

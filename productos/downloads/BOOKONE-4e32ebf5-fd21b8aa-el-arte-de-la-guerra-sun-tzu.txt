@@ -1,0 +1,76 @@
+================================================================================
+                           BIBLIOTECA DIGITAL BOOKONE
+================================================================================
+Título: El Arte de la Guerra
+Autor: Sun Tzu
+Categoría: Estrategia y Filosofía Militar
+Edición: Archivo Clásico Digital BOOKONE — Siglo V a.C.
+Identificador Criptográfico: BOOKONE-CL-001
+Norma de Integridad: SHA-512 / Firma Digital Ed25519
+================================================================================
+
+INTRODUCCIÓN EDITORIAL
+El Arte de la Guerra es uno de los tratados de estrategia más antiguos y profundos
+que conserva la humanidad. Sus máximas sobre previsión, cálculo, disciplina y
+gestión de la incertidumbre trascienden el ámbito bélico para convertirse en
+principios rectores de la toma de decisiones, la diplomacia y la seguridad moderna.
+
+CAPÍTULO I: SOBRE LA EVALUACIÓN Y EL CÁLCULO
+1. La guerra es de vital importancia para el Estado; es el dominio de la vida o
+   la muerte, el camino hacia la supervivencia o la ruina. Por tanto, es imperativo
+   estudiarla con detenimiento.
+2. Valórala a través de cinco factores fundamentales y compáralos con siete elementos
+   para calibrar las condiciones:
+   - El Camino (Tao): la armonía entre el pueblo y sus gobernantes.
+   - El Cielo (Las Estaciones): el clima, la luz, el frío y el calor.
+   - La Tierra (El Terreno): distancias, asperezas, seguridad y estrecheces.
+   - El Mando (El General): sabiduría, sinceridad, benevolencia, coraje y rigor.
+   - La Doctrina (La Disciplina): organización, rangos y logística de provisiones.
+3. El general que domina estos cinco principios vence; quien los ignora, sucumbe.
+4. Todo arte de la guerra se basa en el engaño. Por ende, cuando seas capaz de
+   atacar, finge incapacidad; cuando uses tus fuerzas, muestra inactividad; cuando
+   estés cerca, haz creer al enemigo que te hallas lejos; cuando estés lejos, hazle
+   creer que estás cerca.
+
+CAPÍTULO II: SOBRE EL COSTE Y LA LOGÍSTICA
+1. Nunca una nación se ha beneficiado de una campaña militar prolongada.
+2. El estratega consumado no recluta una segunda leva ni transporta tres veces
+   sus provisiones; toma sus pertrechos de la patria y se abastece del adversario.
+3. Lo supremo en la maestría no reside en ganar cien victorias en cien batallas;
+   la cúspide de la excelencia consiste en doblegar al enemigo sin combatir.
+
+CAPÍTULO III: LA ESTRATEGIA OFENSIVA
+1. Conoce a tu enemigo y conócete a ti mismo; en cien batallas nunca estarás en
+   peligro.
+2. Cuando no conozcas al adversario pero te conozcas a ti mismo, tus probabilidades
+   de victoria o derrota serán iguales.
+3. Si desconoces tanto al adversario como a ti mismo, ten por seguro que sucumbirás
+   en cada combate.
+
+================================================================================
+Sello de Preservación Digital: BOOKONE ARCHIVE - Integridad Garantizada
+Repositorio Institucional de la Biblioteca Digital BOOKONE
+================================================================================
+
+
+/* =============================================================================
+ *                       EX LIBRIS DIGITAL CRIPTOGRÁFICO
+ *                         BIBLIOTECA DIGITAL BOOKONE
+ * =============================================================================
+ * Ejemplar legalmente registrado y emitido para:
+ * Lector / Titular : Lector lectorin
+ * ID de Lector     : fd21b8aa-f52e-4b6e-9137-c9f3e4efcb7e
+ * Folio de Préstamo: 4e32ebf5-c1a9-475e-ac6f-2955397ab6ed
+ * Obra Digital     : El Arte de la Guerra
+ * Código de Obra   : ac24afc3-cdae-4c65-8c8f-291e9c7af3f1
+ * Fecha y Hora UTC : 2026-11-16T06:48:40.683Z
+ * Protocolo        : BOOKONE Watermark v2 / Integridad SHA-512 / No Repudio Ed25519
+ * =============================================================================
+ * AVISO DE PRESERVACIÓN:
+ * Este volumen digital contiene una huella individualizada ligada criptográficamente
+ * a la identidad del titular. Garantiza la trazabilidad y la autenticidad del ejemplar.
+ * ============================================================================= */
+
+---FINGERPRINT---
+user=fd21b8aa-f52e-4b6e-9137-c9f3e4efcb7e;order=4e32ebf5-c1a9-475e-ac6f-2955397ab6ed;product=ac24afc3-cdae-4c65-8c8f-291e9c7af3f1;timestamp=1794811720683
+---END---

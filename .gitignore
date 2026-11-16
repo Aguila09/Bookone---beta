@@ -2,6 +2,8 @@ node_modules/
 .env
 certificados/*.key
 certificados/*.csr
-claves_publicas/*.pem
 **/*.log
 .DS_Store
+claves_publicas/*.pem
+claves_publicas/private_key.pem
+claves_publicas/public_key.pem

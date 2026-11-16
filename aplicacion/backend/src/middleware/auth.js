@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
+import { isValidUUID, query } from '../db.js';
 import { canAccessRoleAction } from '../utils/authorization.js';
-import { store } from '../store.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-me';
 
-export function authRequired(req, res, next) {
+export async function authRequired(req, res, next) {
   const authorization = req.headers.authorization || '';
   const token = authorization.startsWith('Bearer ') ? authorization.slice(7) : null;
 
@@ -15,7 +15,15 @@ export function authRequired(req, res, next) {
 
   try {
     const payload = jwt.verify(token, JWT_SECRET);
-    const user = store.users.find((item) => item.id === payload.userId);
+    if (!isValidUUID(payload.userId)) {
+      return res.status(401).json({ error: 'Token inválido para la base de datos.' });
+    }
+
+    const result = await query(
+      'SELECT id, email, name, role, status, token_version, created_at, last_login FROM users WHERE id = $1',
+      [payload.userId]
+    );
+    const user = result.rows[0];
 
     if (!user) {
       return res.status(401).json({ error: 'Usuario no encontrado para el token.' });
@@ -23,6 +31,10 @@ export function authRequired(req, res, next) {
 
     if (user.status !== 'ACTIVE') {
       return res.status(403).json({ error: 'Cuenta inactiva.' });
+    }
+
+    if (payload.tokenVersion !== undefined && payload.tokenVersion !== user.token_version) {
+      return res.status(401).json({ error: 'La sesión fue revocada por el administrador.' });
     }
 
     req.user = user;
@@ -48,6 +60,6 @@ export function requireRole(...roles) {
   };
 }
 
-export function signToken(userId, expiresIn = '1h') {
-  return jwt.sign({ userId }, JWT_SECRET, { expiresIn });
+export function signToken(userId, expiresIn = '1h', extraClaims = {}) {
+  return jwt.sign({ userId, ...extraClaims }, JWT_SECRET, { expiresIn });
 }
